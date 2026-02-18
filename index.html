@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Endex - تحدي الادخار</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background: #f0f8ff; }
+  h1 { color: #333; }
+  #goal { font-size: 24px; margin-bottom: 20px; }
+  #days { display: flex; flex-wrap: wrap; justify-content: center; }
+  .day { display: inline-block; width: 70px; height: 70px; margin: 5px; background: #eee; font-weight: bold; vertical-align: top; border-radius: 8px; position: relative; }
+  .day span { display: block; margin-top: 10px; font-size: 18px; }
+  .buttons { position: absolute; bottom: 5px; width: 100%; display: flex; justify-content: center; gap: 5px; }
+  .buttons button { cursor: pointer; border: none; padding: 3px 6px; border-radius: 5px; font-size: 16px; }
+  .ok { background: #4CAF50; color: white; }
+  .failBtn { background: #f44336; color: white; }
+  .done { background: #4CAF50; color: white; }
+  .fail { background: #f44336; color: white; }
+</style>
+</head>
+<body>
+<h1>Endex - تحدي الادخار</h1>
+<div id="goal">المتبقي: <span id="remaining">2000</span> جنيه</div>
+<div id="days"></div>
+
+<script>
+let totalGoal = 2000; // الهدف الشهري
+let dailyAmount = 100; // الادخار اليومي
+let remaining = totalGoal;
+const daysContainer = document.getElementById('days');
+
+// إنشاء 30 يوم لكل الشهر
+for(let i=1;i<=30;i++){
+    let day = document.createElement('div');
+    day.className = 'day';
+    day.innerHTML = '<span>' + i + '</span><div class="buttons"><button class="ok">✅</button><button class="failBtn">❌</button></div>';
+    
+    let okBtn = day.querySelector('.ok');
+    let failBtn = day.querySelector('.failBtn');
+
+    okBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        if(!day.classList.contains('done')){
+            day.classList.remove('fail');
+            day.classList.add('done');
+            remaining -= dailyAmount;
+            if(remaining < 0) remaining = 0;
+            document.getElementById('remaining').textContent = remaining;
+        } else {
+            day.classList.remove('done');
+            remaining += dailyAmount;
+            document.getElementById('remaining').textContent = remaining;
+        }
+    });
+
+    failBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        day.classList.remove('done');
+        day.classList.add('fail');
+        // المبلغ المتبقي لا ينقص عند الغلط
+        document.getElementById('remaining').textContent = remaining;
+    });
+
+    daysContainer.appendChild(day);
+}
+</script>
+</body>
+</html>
