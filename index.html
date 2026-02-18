@@ -55,7 +55,7 @@ function updateDisplay(){
     document.getElementById('remaining').textContent = totalDays*dailyAmount - doneCount*dailyAmount;
     const progressPercent = (doneCount/totalDays)*100;
     document.getElementById('progressBar').style.width = progressPercent + '%';
-    document.getElementById('progressBar').style.background = hsl(${progressPercent*1.2},70%,40%);
+    document.getElementById('progressBar').style.background = `hsl(${progressPercent*1.2},70%,40%)`;
 }
 
 // إنشاء المربعات
@@ -92,7 +92,8 @@ for(let i=0;i<totalDays;i++){
 }
 
 updateDisplay();
-  // تحديث العد التنازلي
+
+// تحديث العد التنازلي
 function updateCountdown(){
     const now = new Date();
     let diff = endDate - now;
@@ -101,7 +102,7 @@ function updateCountdown(){
     const hours = Math.floor((diff / (1000*60*60)) % 24);
     const minutes = Math.floor((diff / (1000*60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
-    document.getElementById('timeLeft').textContent = ${days} يوم ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')};
+    document.getElementById('timeLeft').textContent = `${days} يوم ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
 }
 
 setInterval(updateCountdown,1000);
