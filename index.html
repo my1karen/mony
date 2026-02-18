@@ -2,20 +2,21 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تحدي الادخار 5 شهور</title>
 <style>
-  body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background: #f0f8ff; }
-  h1 { color: #333; margin-bottom: 10px; }
-  #timer { font-size: 20px; margin-bottom: 10px; color: #555; }
-  #countdown { font-size: 18px; margin-bottom: 20px; color: #222; }
-  #goal { font-size: 24px; margin-bottom: 20px; }
-  #progressContainer { width: 80%; height: 25px; background: #ddd; border-radius: 12px; margin: 10px auto; overflow: hidden; }
+  body { font-family: Arial, sans-serif; text-align: center; padding: 10px; background: #f0f8ff; }
+  h1 { color: #333; margin-bottom: 10px; font-size: 22px; }
+  #timer { font-size: 18px; margin-bottom: 5px; color: #555; }
+  #countdown { font-size: 16px; margin-bottom: 15px; color: #222; }
+  #goal { font-size: 20px; margin-bottom: 15px; }
+  #progressContainer { width: 90%; height: 25px; background: #ddd; border-radius: 12px; margin: 10px auto; overflow: hidden; }
   #progressBar { height: 100%; width: 0%; background: #4CAF50; transition: width 0.3s; }
   #days { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 15px; }
-  .day { display: inline-block; width: 70px; height: 70px; margin: 5px; background: #eee; font-weight: bold; vertical-align: top; border-radius: 8px; position: relative; }
-  .day span { display: block; margin-top: 10px; font-size: 18px; }
-  .buttons { position: absolute; bottom: 5px; width: 100%; display: flex; justify-content: center; gap: 5px; }
-  .buttons button { cursor: pointer; border: none; padding: 3px 6px; border-radius: 5px; font-size: 16px; }
+  .day { display: inline-block; width: 60px; height: 60px; margin: 5px; background: #eee; font-weight: bold; vertical-align: top; border-radius: 8px; position: relative; }
+  .day span { display: block; margin-top: 8px; font-size: 16px; }
+  .buttons { position: absolute; bottom: 3px; width: 100%; display: flex; justify-content: center; gap: 3px; }
+  .buttons button { cursor: pointer; border: none; padding: 4px 6px; border-radius: 5px; font-size: 16px; }
   .ok { background: #4CAF50; color: white; }
   .failBtn { background: #f44336; color: white; }
   .done { background: #4CAF50; color: white; }
@@ -47,6 +48,7 @@ const endDate = new Date(startDate.getTime() + totalDays*24*60*60*1000);
 
 // إنشاء الأيام
 const daysContainer = document.getElementById('days');
+
 function updateDisplay(){
     const doneCount = dayStatus.filter(s=>'done'===s).length;
     document.getElementById('daysLeft').textContent = totalDays - doneCount;
@@ -56,6 +58,7 @@ function updateDisplay(){
     document.getElementById('progressBar').style.background = hsl(${progressPercent*1.2},70%,40%);
 }
 
+// إنشاء المربعات
 for(let i=0;i<totalDays;i++){
     let day = document.createElement('div');
     day.className = 'day';
@@ -88,7 +91,8 @@ for(let i=0;i<totalDays;i++){
     daysContainer.appendChild(day);
 }
 
-updateDisplay();// تحديث العد التنازلي
+updateDisplay();
+  // تحديث العد التنازلي
 function updateCountdown(){
     const now = new Date();
     let diff = endDate - now;
@@ -99,6 +103,7 @@ function updateCountdown(){
     const seconds = Math.floor((diff / 1000) % 60);
     document.getElementById('timeLeft').textContent = ${days} يوم ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')};
 }
+
 setInterval(updateCountdown,1000);
 updateCountdown();
 </script>
